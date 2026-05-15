@@ -26,9 +26,6 @@ RUN chown -R appuser:appgroup /app
 USER appuser
 # Puerto que usa Flask
 EXPOSE 5000
-# Healthcheck para el frontend
-HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-CMD wget -qO- http://localhost:5000/ || exit 1
 # En producción no se usa Flask, se usa gunicorn
 # El servidor de Flask no está diseñado para producción
 CMD ["python", "-m", "gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]
